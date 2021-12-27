@@ -1,3 +1,6 @@
+html{
+  height: 100%;
+}
 body,
 p,
 h1,
@@ -37,11 +40,14 @@ h3 {
 
 body {
     font-family: 'Proxima Nova', Georgia, sans-serif;
-    background: rgb(24, 24, 24);
     color: #fff;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0;
+    /* background: linear-gradient(rgba(250,0,0,0.5),transparent); */
+    background: linear-gradient(to left, rgba(255,0,0,0), rgba(110, 38, 14,1));
+    /* background: linear-gradient(270deg, rgba(255,0,0,0), rgba(255,0,0,1)); */
+  background-color: rgb(24, 24, 24) /*this your primary color*/;
 }
 
 .app-container {
@@ -52,7 +58,7 @@ body {
 .left-side-section {
   position: fixed;
   top: 10px;
-  left: 10px;
+  left: 15px;
   bottom: 10px;
   width: 180px;
   overflow-y: auto;

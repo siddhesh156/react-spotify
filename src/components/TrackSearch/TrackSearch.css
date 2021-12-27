@@ -4,14 +4,21 @@
 }
 
 .track-search-container input {
-	background: #fff;
-	width: 120px;
+	background: rgba(255,255, 255, 0.2);
+	width: 400px;
 	border-radius: 10px;
 	border: none;
   font-family: 'Proxima Nova', Georgia, sans-serif;
 	padding: 4px 4px 4px 10px;
 	outline: none;
+	height: 30px;
+	color: white;
 }
+
+.track-search-container input::placeholder {
+	color: white;
+	opacity: 1; 
+  }
 
 .search {
 	margin-left: 5px;

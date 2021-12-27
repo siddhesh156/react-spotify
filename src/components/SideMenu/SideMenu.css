@@ -1,7 +1,11 @@
 .side-menu-container {
-  padding: 20px;
+  padding: 10px;
   color: rgb(179, 179, 179);
   margin: 0;
+}
+
+.side-menu{
+  margin-top: 25px;
 }
 
 .user-library-header {
@@ -16,8 +20,8 @@
 
 .side-menu-item {
   list-style-type: none;
-  line-height: 28px;
-  font-size: 14px;
+  line-height: 40px;
+  font-size: 18px;
   width: 140px;
   cursor: pointer;
 text-overflow: ellipsis;
@@ -30,6 +34,10 @@ white-space: nowrap;
 
 .radio {
   margin-bottom: 20px;
+}
+
+.spotify-logo{
+  height: 40px;
 }
 
 .side-menu-container .active {

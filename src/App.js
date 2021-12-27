@@ -22,6 +22,7 @@ import SongList from './components/SongList';
 import Login from './components/Login/Login';
 import { getTokenFromResponse } from './spotify';
 import SongControls from './components/SongControls';
+import SongDispaly from './components/SongDisplay/component';
 
 class App extends Component {
   static audio;
@@ -30,14 +31,14 @@ class App extends Component {
   componentDidMount() {
     // let hashParams = {};
     let hashParams = getTokenFromResponse();
-    window.location.hash = "";
+    window.location.hash = '';
     // let e,
     //   r = /([^&;=]+)=?([^&;]*)/g,
     //   q = window.location.hash.substring(1);
     // while ((e = r.exec(q))) {
     //   hashParams[e[1]] = decodeURIComponent(e[2]);
     // }
-    this.token = hashParams.access_token
+    this.token = hashParams.access_token;
 
     if (!hashParams.access_token) {
       window.location.href =
@@ -95,8 +96,9 @@ class App extends Component {
   };
 
   render() {
-   return (
-      !this.token ? <Login /> :
+    return !this.token ? (
+      <Login />
+    ) : (
       <div className="App">
         <div className="app-container">
           <div className="left-side-section">
@@ -117,30 +119,26 @@ class App extends Component {
                 audioControl={this.audioControl}
               /> */}
               <SongList
-          pauseSong={this.pauseSong}
-          resumeSong={this.resumeSong}
-          audioControl={this.audioControl}
-        />
+                pauseSong={this.pauseSong}
+                resumeSong={this.resumeSong}
+                audioControl={this.audioControl}
+              />
             </div>
-            
           </div>
           <div className="song-section">
-            <SongControls
-      stopSong={this.stopSong}
+            {/* <SongDispaly stopSong={this.stopSong}
       pauseSong={this.pauseSong}
       resumeSong={this.resumeSong}
-      audioControl={this.audioControl}
-    />
-            </div>
-          {/* <Footer
-            stopSong={this.stopSong}
-            pauseSong={this.pauseSong}
-            resumeSong={this.resumeSong}
-            audioControl={this.audioControl}
-          /> */}
+      audioControl={this.audioControl} /> */}
+            <SongControls
+              stopSong={this.stopSong}
+              pauseSong={this.pauseSong}
+              resumeSong={this.resumeSong}
+              audioControl={this.audioControl}
+            />
+          </div>
         </div>
       </div>
-    
     );
   }
 }

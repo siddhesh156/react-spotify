@@ -24,7 +24,7 @@ class TrackSearch extends Component {
           <input
             onChange={this.updateSearchTerm}
             type="text"
-            placeholder="Search..."
+            placeholder="Search Song, Artist"
           />
           <button
             onClick={e => {

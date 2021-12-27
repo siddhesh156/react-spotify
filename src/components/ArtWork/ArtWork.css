@@ -1,0 +1,11 @@
+.album-artwork-container {
+  width: 40px;
+  position: fixed;
+  bottom: 75px;
+}
+
+.album-artwork {
+  width: 100%;
+  border-width: 1px;
+  border-radius: 50px;
+}

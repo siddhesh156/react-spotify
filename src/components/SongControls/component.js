@@ -72,11 +72,11 @@ class SongControls extends Component {
 
   render() {
     const showPlay = this.props.songPaused ? 'fa fa-play-circle-o play-btn' : 'fa fa-pause-circle-o pause-btn';
-
-    return (
+  return (
       <div className='song-player-container'>
 
         <div className='song-details'>
+          {/* <img alt="album" src={this.props.songs[0].track.album.images[0].url}/> */}
           <p className='song-name'>{this.props.songName}</p>
           <p className='artist-name'>{this.props.artistName}</p>
         </div>

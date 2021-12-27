@@ -22,7 +22,7 @@ export const fetchSongsError = () => {
 
 export const fetchSongs = (accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/me/tracks?limit=50`, {
+    const request = new Request(`https://api.spotify.com/v1/browse/new-releases`, {
       headers: new Headers({
         'Authorization': 'Bearer ' + accessToken
       })
@@ -43,9 +43,11 @@ export const fetchSongs = (accessToken) => {
         return item.track.artists[0].id;
       }).join(',');
 
+      console.log("sa ",res.albums.items);
       dispatch(setArtistIds(artistIds));
 
-      dispatch(fetchSongsSuccess(res.items));
+      // dispatch(fetchSongsSuccess(res.items));
+      dispatch(fetchSongsSuccess(res.albums.items));
     }).catch(err => {
       dispatch(fetchSongsError(err));
     });

@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
-import "./SongList.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import './SongList.css';
 
 class SongList extends Component {
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.token !== "" &&
+      nextProps.token !== '' &&
       !nextProps.fetchSongsError &&
       nextProps.fetchSongsPending &&
-      nextProps.viewType === "songs"
+      nextProps.viewType === 'songs'
     ) {
       this.props.fetchSongs(nextProps.token);
     }
@@ -18,81 +18,133 @@ class SongList extends Component {
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
+
+  // renderSongs() {
+  //   return this.props.songs.map((song, i) => {
+  //     const buttonClass =
+  //       song.track.id === this.props.songId && !this.props.songPaused
+  //         ? "fa-pause-circle-o"
+  //         : "fa-play-circle-o";
+
+  //     return (
+  //       <li
+  //         className={
+  //           song.track.id === this.props.songId
+  //             ? "active user-song-item"
+  //             : "user-song-item"
+  //         }
+  //         key={i}
+  //       >
+  //         <div
+  //           onClick={() => {
+  //             song.track.id === this.props.songId &&
+  //               this.props.songPlaying &&
+  //               this.props.songPaused
+  //               ? this.props.resumeSong()
+  //               : this.props.songPlaying &&
+  //                 !this.props.songPaused &&
+  //                 song.track.id === this.props.songId
+  //                 ? this.props.pauseSong()
+  //                 : this.props.audioControl(song);
+  //           }}
+  //           className="play-song"
+  //         >
+  //           <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
+  //         </div>
+
+  //         {this.props.viewType !== "songs" && (
+  //           <p
+  //             className="add-song"
+  //             onClick={() => {
+  //               this.props.addSongToLibrary(this.props.token, song.track.id);
+  //             }}
+  //           >
+  //             {this.props.songAddedId === song.track.id ? (
+  //               <i className="fa fa-check add-song" aria-hidden="true" />
+  //             ) : (
+  //                 <i className="fa fa-plus add-song" aria-hidden="true" />
+  //               )}
+  //           </p>
+  //         )}
+
+  //         {this.props.viewType === "songs" && (
+  //           <p className="add-song">
+  //             <i className="fa fa-check" aria-hidden="true" />
+  //           </p>
+  //         )}
+
+  //         <div className="song-title">
+  //           <p>{song.track.name}</p>
+  //         </div>
+
+  //         <div className="song-artist">
+  //           <p>{song.track.artists[0].name}</p>
+  //         </div>
+
+  //         <div className="song-album">
+  //           <p>{song.track.album.name}</p>
+  //         </div>
+
+  //         <div className="song-added">
+  //           <p>{moment(song.added_at).format("YYYY-MM-DD")}</p>
+  //         </div>
+
+  //         <div className="song-length">
+  //           <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
+  //         </div>
+  //       </li>
+  //     );
+  //   });
+  // }
 
   renderSongs() {
     return this.props.songs.map((song, i) => {
       const buttonClass =
-        song.track.id === this.props.songId && !this.props.songPaused
-          ? "fa-pause-circle-o"
-          : "fa-play-circle-o";
+        song.id === this.props.songId && !this.props.songPaused
+          ? 'fa-pause-circle-o'
+          : 'fa-play-circle-o';
 
       return (
         <li
           className={
-            song.track.id === this.props.songId
-              ? "active user-song-item"
-              : "user-song-item"
+            song.id === this.props.songId
+              ? 'active user-song-item'
+              : 'user-song-item'
           }
           key={i}
         >
-          <div
+          {/* <div
             onClick={() => {
-              song.track.id === this.props.songId &&
+              song.id === this.props.songId &&
                 this.props.songPlaying &&
                 this.props.songPaused
                 ? this.props.resumeSong()
                 : this.props.songPlaying &&
                   !this.props.songPaused &&
-                  song.track.id === this.props.songId
+                  song.id === this.props.songId
                   ? this.props.pauseSong()
                   : this.props.audioControl(song);
             }}
             className="play-song"
           >
             <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
+          </div> */}
+
+          <div>
+            <img className="song-image" src={song.images[0].url} />
           </div>
-
-          {this.props.viewType !== "songs" && (
-            <p
-              className="add-song"
-              onClick={() => {
-                this.props.addSongToLibrary(this.props.token, song.track.id);
-              }}
-            >
-              {this.props.songAddedId === song.track.id ? (
-                <i className="fa fa-check add-song" aria-hidden="true" />
-              ) : (
-                  <i className="fa fa-plus add-song" aria-hidden="true" />
-                )}
-            </p>
-          )}
-
-          {this.props.viewType === "songs" && (
-            <p className="add-song">
-              <i className="fa fa-check" aria-hidden="true" />
-            </p>
-          )}
 
           <div className="song-title">
-            <p>{song.track.name}</p>
+            <p>{song.name}</p>
+            <div>{song.artists[0].name}</div>
           </div>
 
-          <div className="song-artist">
-            <p>{song.track.artists[0].name}</p>
-          </div>
-
-          <div className="song-album">
-            <p>{song.track.album.name}</p>
-          </div>
-
-          <div className="song-added">
-            <p>{moment(song.added_at).format("YYYY-MM-DD")}</p>
-          </div>
+         
 
           <div className="song-length">
-            <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
+            <p>{this.msToMinutesAndSeconds(song.duration_ms || "400000")}</p>
           </div>
         </li>
       );
@@ -101,7 +153,7 @@ class SongList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="song-list">
         {/* <div className="song-header-container">
           <div className="song-title-header">
             <p>Title</p>

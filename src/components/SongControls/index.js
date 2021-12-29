@@ -4,11 +4,12 @@ import { bindActionCreators } from "redux";
 import { increaseSongTime } from "../../actions/songActions";
 
 const mapStateToProps = state => {
+  console.log("song control ",state.songsReducer.songDetails);
   return {
     songName: state.songsReducer.songDetails
-      ? state.songsReducer.songDetails.name
+      ? state.songsReducer.songDetails.name || state.songsReducer.songDetails.track.name
       : "",
-    artistName: state.songsReducer.songDetails
+    artistName: state.songsReducer.songDetails && state.songsReducer.songDetails.artists
       ? state.songsReducer.songDetails.artists[0].name
       : "",
     songPlaying: state.songsReducer.songPlaying,

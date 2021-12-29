@@ -148,7 +148,6 @@ export const fetchRecentlyPlayed = (accessToken) => {
       res.items = uniqBy(res.items, (item) => {
         return item.track.id;
       });
-      console.log(res);
       dispatch(fetchRecentlyPlayedSuccess(res.items));
     }).catch(err => {
       dispatch(fetchRecentlyPlayedError(err));

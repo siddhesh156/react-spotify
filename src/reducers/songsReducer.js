@@ -131,8 +131,8 @@ export const songsReducer = (state = defaultState, action) => {
     return {
       ...state,
       songPlaying: true,
-      songDetails: action.song,
-      songId: action.song.id,
+      songDetails: action.song || action.song.track,
+      songId: action.song.id || action.song.track.id,
       timeElapsed: 0,
       songPaused: false
     };

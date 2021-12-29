@@ -37,8 +37,7 @@ const SideMenu = ({
       },
       {
         name: "Favourites",
-        action: fetchArtists,
-        getArtists: true
+        action: fetchRecentlyPlayed
       },
       {
         name: "Recently Played",

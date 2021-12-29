@@ -84,15 +84,16 @@ class App extends Component {
 
     if (this.audio === undefined) {
       // playSong(song.track);
-      playSong(song);
+      playSong(song || song.track);
        //this.audio = new Audio(song.track.preview_url);
-      this.audio = new Audio(song.preview_url);
+       //console.log("song ",song);
+      this.audio = new Audio(song.preview_url || song.track.preview_url);
       this.audio.play();
     } else {
       stopSong();
       this.audio.pause();
-      playSong(song);
-      this.audio = new Audio(song.preview_url);
+      playSong(song || song.track);
+      this.audio = new Audio(song.preview_url || song.track.preview_url);
       this.audio.play();
     }
   };

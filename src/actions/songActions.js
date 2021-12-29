@@ -22,7 +22,9 @@ export const fetchSongsError = () => {
 
 export const fetchSongs = (accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/browse/new-releases`, {
+    //https://api.spotify.com/v1/browse/new-releases
+    
+    const request = new Request(`https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B`, {
       headers: new Headers({
         'Authorization': 'Bearer ' + accessToken
       })
@@ -43,12 +45,14 @@ export const fetchSongs = (accessToken) => {
         return item.track.artists[0].id;
       }).join(',');
 
-      console.log("sa ",res.albums.items);
+      //console.log("sa ",res.tracks);
       dispatch(setArtistIds(artistIds));
 
       // dispatch(fetchSongsSuccess(res.items));
-      dispatch(fetchSongsSuccess(res.albums.items));
+      // dispatch(fetchSongsSuccess(res.albums.items));
+      dispatch(fetchSongsSuccess(res.tracks));
     }).catch(err => {
+      console.log(err);
       dispatch(fetchSongsError(err));
     });
   };
@@ -123,7 +127,13 @@ export const fetchRecentlyPlayedError = () => {
 
 export const fetchRecentlyPlayed = (accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/me/player/recently-played`, {
+    // const request = new Request(`https://api.spotify.com/v1/me/player/recently-played`, {
+    //   headers: new Headers({
+    //     'Authorization': 'Bearer ' + accessToken
+    //   })
+    // });
+
+    const request = new Request(`https://api.spotify.com/v1/me/player/recently-played?limit=10&after=1484811043508`, {
       headers: new Headers({
         'Authorization': 'Bearer ' + accessToken
       })
@@ -138,6 +148,7 @@ export const fetchRecentlyPlayed = (accessToken) => {
       res.items = uniqBy(res.items, (item) => {
         return item.track.id;
       });
+      console.log(res);
       dispatch(fetchRecentlyPlayedSuccess(res.items));
     }).catch(err => {
       dispatch(fetchRecentlyPlayedError(err));

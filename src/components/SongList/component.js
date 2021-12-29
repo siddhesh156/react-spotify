@@ -15,6 +15,9 @@ class SongList extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.fetchSongs(this.props.token);
+  }
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -113,6 +116,17 @@ class SongList extends Component {
               ? 'active user-song-item'
               : 'user-song-item'
           }
+          onClick={() => {
+            song.id === this.props.songId &&
+              this.props.songPlaying &&
+              this.props.songPaused
+              ? this.props.resumeSong()
+              : this.props.songPlaying &&
+                !this.props.songPaused &&
+                song.id === this.props.songId
+                ? this.props.pauseSong()
+                : this.props.audioControl(song);
+          }}
           key={i}
         >
           {/* <div
@@ -133,7 +147,7 @@ class SongList extends Component {
           </div> */}
 
           <div>
-            <img className="song-image" src={song.images[0].url} />
+            <img className="song-image" src={song.album.images[0].url} />
           </div>
 
           <div className="song-title">

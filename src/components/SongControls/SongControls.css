@@ -1,24 +1,39 @@
 .song-details {
-  position: absolute;
+  /* position: absolute; */
   left: 20px;
   line-height: 22px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .song-details .song-name {
   font-family: 'Proxima Nova', Georgia, sans-serif;
   color: #fff;
-  font-size: 14px;
+  margin-left: -28%;
 }
 
 .song-details .artist-name {
   font-family: 'Proxima Thin', Georgia, sans-serif;
   color: #aaa;
-  font-size: 12px;
+  margin-left: -61%;
+  margin-top: 2%;
+}
+
+.song-details .song-image {
+  height: 70%;
+  width: 70%;
+  border-radius: 10px;
+  margin-top: 3%;
 }
 
 .song-controls {
-  justify-content: center;
+  /* justify-content: center; */
   display: flex;
+    flex-direction: column;
+    align-items: center;
   margin-top: 20px;
 }
 
@@ -33,6 +48,10 @@
 .reverse,
 .forward {
   font-size: 16px;
+}
+
+.song-player-container {
+  margin-top: 15%;
 }
 
 .song-player-container .play-btn {
@@ -56,13 +75,18 @@
   margin-top: -10px;
   display: flex;
   justify-content: center;
+  width: 68%;
+}
+.control-container{
+  display: flex;
+  margin-top: 3%;
 }
 
 .song-progress {
   /* width: 500px; */
-  width: 45%;
+  width: 100%;
   height: 4px;
-  background: rgb(64, 64, 64);;
+  background: rgb(64, 64, 64);
   border-radius: 4px;
 }
 
@@ -70,7 +94,7 @@
   margin: 0;
   width: 100px;
   height: 4px;
-  background: #1db954;
+  background: #fff;
   border-radius: 4px;
 }
 

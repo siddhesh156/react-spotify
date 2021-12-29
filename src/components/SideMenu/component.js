@@ -29,11 +29,11 @@ const SideMenu = ({
     const menu = [
       {
         name: "For You",
-        action: fetchSongs
+        action: fetchAlbums
       },
       {
         name: "Top Tracks",
-        action: fetchAlbums
+        action: fetchSongs
       },
       {
         name: "Favourites",

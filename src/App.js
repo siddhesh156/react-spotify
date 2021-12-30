@@ -19,7 +19,7 @@ import Login from './components/Login/Login';
 import { getTokenFromResponse } from './spotify';
 import SongControls from './components/SongControls';
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+// import { ApolloProvider } from "react-apollo";
 class App extends Component {
   static audio;
   static token;
@@ -28,7 +28,6 @@ class App extends Component {
     uri: "https://api.ss.dev/resource/api"
   });
 
- 
   componentDidMount() {
     // let hashParams = {};
     let hashParams = getTokenFromResponse();
@@ -82,12 +81,8 @@ class App extends Component {
 
   audioControl = (song) => {
     const { playSong, stopSong } = this.props;
-
     if (this.audio === undefined) {
-      // playSong(song.track);
       playSong(song || song.track);
-       //this.audio = new Audio(song.track.preview_url);
-       //console.log("song ",song);
       this.audio = new Audio(song.preview_url || song.track.preview_url);
       this.audio.play();
     } else {
@@ -100,30 +95,22 @@ class App extends Component {
   };
 
   render() {
-    console.log("celint ",this.client);
     return !this.token ? (
       <Login />
     ) : (
-      <ApolloProvider client={this.client}>
+      // <ApolloProvider client={this.client}>
       <div className="App">
         <div className="app-container">
           <div className="left-side-section">
             <SideMenu />
-            {/* <UserPlaylists /> */}
             <ArtWork />
           </div>
           <div className="main-section">
-            {/* <Header /> */}
             <div className="main-section-container">
               <MainHeader
                 pauseSong={this.pauseSong}
                 resumeSong={this.resumeSong}
               />{' '}
-              {/* <MainView
-                pauseSong={this.pauseSong}
-                resumeSong={this.resumeSong}
-                audioControl={this.audioControl}
-              /> */}
               <SongList
                 pauseSong={this.pauseSong}
                 resumeSong={this.resumeSong}
@@ -132,10 +119,6 @@ class App extends Component {
             </div>
           </div>
           <div className="song-section">
-            {/* <SongDispaly stopSong={this.stopSong}
-      pauseSong={this.pauseSong}
-      resumeSong={this.resumeSong}
-      audioControl={this.audioControl} /> */}
             <SongControls
               stopSong={this.stopSong}
               pauseSong={this.pauseSong}
@@ -145,7 +128,7 @@ class App extends Component {
           </div>
         </div>
       </div>
-      </ApolloProvider>
+    // </ApolloProvider>
     );
   }
 }

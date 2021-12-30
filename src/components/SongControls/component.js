@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+// import moment from 'moment';
 import './SongControls.css';
 
 class SongControls extends Component {
@@ -96,14 +96,12 @@ class SongControls extends Component {
 
         <div className="song-controls">
           <div className="song-progress-container">
-            {/* <p className='timer-start'>{moment().minutes(0).second(this.state.timeElapsed).format('m:ss')}</p> */}
             <div className="song-progress">
               <div
                 style={{ width: this.state.timeElapsed * 16.5 }}
                 className="song-expired"
               />
             </div>
-            {/* <p className='timer-end'>{moment().minutes(0).second(30 - this.state.timeElapsed).format('m:ss')}</p> */}
           </div>
 
           <div className='control-container'>

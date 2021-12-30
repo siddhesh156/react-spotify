@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+// import moment from 'moment';
 import './SongList.css';
+// import { Query } from 'react-apollo';
+// import gql from 'graphql-tag';
 class SongList extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.viewType)
     if (
       nextProps.token !== '' &&
       !nextProps.fetchSongsError &&
@@ -12,9 +13,8 @@ class SongList extends Component {
       nextProps.viewType === 'songs'
     ) {
       this.props.fetchSongs(nextProps.token);
-    }
-    else if(nextProps.viewType == "search"){
-      this.props.fetchSearchSongs()
+    } else if (nextProps.viewType === 'search') {
+      this.props.fetchSearchSongs();
     }
   }
 
@@ -22,13 +22,15 @@ class SongList extends Component {
     this.props.fetchSongs(this.props.token);
   }
 
-   random_rgba() {
-    var o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
-}
-  
-  componentDidUpdate(){
-   document.body.style.background = `linear-gradient(to left, rgba(255,0,0,0), ${this.random_rgba()})`
+  random_rgba() {
+    var o = Math.round,
+      r = Math.random,
+      s = 255;
+    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',1)';
+  }
+
+  componentDidUpdate() {
+    document.body.style.background = `linear-gradient(to left, rgba(255,0,0,0), ${this.random_rgba()})`;
   }
 
   msToMinutesAndSeconds(ms) {
@@ -39,12 +41,7 @@ class SongList extends Component {
 
   renderRecentSongs() {
     return this.props.songs.map((song, i) => {
-      const buttonClass =
-        song.track.id === this.props.songId && !this.props.songPaused
-          ? 'fa-pause-circle-o'
-          : 'fa-play-circle-o';
-
-      return (
+        return (
         <li
           className={
             song.track.id === this.props.songId
@@ -65,7 +62,7 @@ class SongList extends Component {
           key={i}
         >
           <div>
-            <img className="song-image" src={song.track.album.images[0].url} />
+            <img className="song-image" alt="Song Iamge" src={song.track.album.images[0].url} />
           </div>
 
           <div className="song-title">
@@ -74,7 +71,9 @@ class SongList extends Component {
           </div>
 
           <div className="song-length">
-            <p>{this.msToMinutesAndSeconds(song.track.duration_ms || '400000')}</p>
+            <p>
+              {this.msToMinutesAndSeconds(song.track.duration_ms || '400000')}
+            </p>
           </div>
         </li>
       );
@@ -83,12 +82,6 @@ class SongList extends Component {
 
   renderSongs() {
     return this.props.songs.map((song, i) => {
-      console.log("s ",song);
-      const buttonClass =
-        song.id === this.props.songId && !this.props.songPaused
-          ? 'fa-pause-circle-o'
-          : 'fa-play-circle-o';
-
       return (
         <li
           className={
@@ -109,25 +102,8 @@ class SongList extends Component {
           }}
           key={i}
         >
-          {/* <div
-            onClick={() => {
-              song.id === this.props.songId &&
-                this.props.songPlaying &&
-                this.props.songPaused
-                ? this.props.resumeSong()
-                : this.props.songPlaying &&
-                  !this.props.songPaused &&
-                  song.id === this.props.songId
-                  ? this.props.pauseSong()
-                  : this.props.audioControl(song);
-            }}
-            className="play-song"
-          >
-            <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
-          </div> */}
-
           <div>
-            <img className="song-image" src={song.album.images[0].url} />
+            <img className="song-image" alt="Song Iamge" src={song.album.images[0].url} />
           </div>
 
           <div className="song-title">
@@ -145,17 +121,38 @@ class SongList extends Component {
 
   render() {
     return (
-      <div className="song-list">
-        {/* {this.props.songs &&
+      // <Query
+      //   query={gql`
+      //     {
+      //       Tracks {
+      //         songs
+      //       }
+      //     }
+      //   `}
+      // >{
+      //   ({ loading, error, data }) => {
+      //     return (
+        <div className="song-list">
+          {/* {this.props.songs &&
           !this.props.fetchSongsPending &&
           !this.props.fetchPlaylistSongsPending &&
           this.renderSongs()} */}
-          {this.props.songs && !this.props.songs[0].track && (this.props.viewType !== 'Recently Played' || this.props.viewType !== "Favourites")?
-          this.renderSongs() : null}
-        {this.props.songs && this.props.songs[0].track && this.props.viewType === 'Recently Played'
-          ? this.renderRecentSongs()
-          : null}
-      </div>
+          {this.props.songs &&
+          !this.props.songs[0].track &&
+          (this.props.viewType !== 'Recently Played' ||
+            this.props.viewType !== 'Favourites')
+            ? this.renderSongs()
+            : null}
+          {this.props.songs &&
+          this.props.songs[0].track &&
+          this.props.viewType === 'Recently Played'
+            ? this.renderRecentSongs()
+            : null}
+        </div>
+          // )
+      //   }
+      // }
+      // </Query>
     );
   }
 }
@@ -176,7 +173,7 @@ SongList.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
-  fetchSearchSongs : PropTypes.func
+  fetchSearchSongs: PropTypes.func,
 };
 
 export default SongList;

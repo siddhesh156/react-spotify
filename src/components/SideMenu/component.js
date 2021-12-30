@@ -18,13 +18,7 @@ const SideMenu = ({
     updateHeaderTitle(name);
     updateViewType(name);
   };
-
-  const handleBrowseClick = () => {
-    updateHeaderTitle("Browse");
-    updateViewType("Featured");
-    fetchFeatured(token);
-  };
-
+  
   const renderSideMenu = () => {
     const menu = [
       {

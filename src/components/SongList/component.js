@@ -28,8 +28,8 @@ class SongList extends Component {
       s = 255;
     return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',1)';
   }
-
-  componentDidUpdate() {
+  
+  callRGB() {
     document.body.style.background = `linear-gradient(to left, rgba(255,0,0,0), ${this.random_rgba()})`;
   }
 
@@ -39,9 +39,35 @@ class SongList extends Component {
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
+  clickHandler(song) {
+    this.callRGB();
+    song.id === this.props.songId &&
+    this.props.songPlaying &&
+    this.props.songPaused
+      ? this.props.resumeSong()
+      : this.props.songPlaying &&
+        !this.props.songPaused &&
+        song.id === this.props.songId
+      ? this.props.pauseSong()
+      : this.props.audioControl(song);
+  }
+
+  clickTrackHandler(song) {
+    this.callRGB();
+    song.track.id === this.props.songId &&
+    this.props.songPlaying &&
+    this.props.songPaused
+      ? this.props.resumeSong()
+      : this.props.songPlaying &&
+        !this.props.songPaused &&
+        song.track.id === this.props.songId
+      ? this.props.pauseSong()
+      : this.props.audioControl(song);
+  }
+
   renderRecentSongs() {
     return this.props.songs.map((song, i) => {
-        return (
+      return (
         <li
           className={
             song.track.id === this.props.songId
@@ -49,20 +75,16 @@ class SongList extends Component {
               : 'user-song-item'
           }
           onClick={() => {
-            song.track.id === this.props.songId &&
-            this.props.songPlaying &&
-            this.props.songPaused
-              ? this.props.resumeSong()
-              : this.props.songPlaying &&
-                !this.props.songPaused &&
-                song.track.id === this.props.songId
-              ? this.props.pauseSong()
-              : this.props.audioControl(song);
+           this.clickTrackHandler(song)
           }}
           key={i}
         >
           <div>
-            <img className="song-image" alt="Song Iamge" src={song.track.album.images[0].url} />
+            <img
+              className="song-image"
+              alt="Song Iamge"
+              src={song.track.album.images[0].url}
+            />
           </div>
 
           <div className="song-title">
@@ -90,20 +112,16 @@ class SongList extends Component {
               : 'user-song-item'
           }
           onClick={() => {
-            song.id === this.props.songId &&
-            this.props.songPlaying &&
-            this.props.songPaused
-              ? this.props.resumeSong()
-              : this.props.songPlaying &&
-                !this.props.songPaused &&
-                song.id === this.props.songId
-              ? this.props.pauseSong()
-              : this.props.audioControl(song);
+            this.clickHandler(song);
           }}
           key={i}
         >
           <div>
-            <img className="song-image" alt="Song Iamge" src={song.album.images[0].url} />
+            <img
+              className="song-image"
+              alt="Song Iamge"
+              src={song.album.images[0].url}
+            />
           </div>
 
           <div className="song-title">
@@ -132,24 +150,20 @@ class SongList extends Component {
       // >{
       //   ({ loading, error, data }) => {
       //     return (
-        <div className="song-list">
-          {/* {this.props.songs &&
-          !this.props.fetchSongsPending &&
-          !this.props.fetchPlaylistSongsPending &&
-          this.renderSongs()} */}
-          {this.props.songs &&
-          !this.props.songs[0].track &&
-          (this.props.viewType !== 'Recently Played' ||
-            this.props.viewType !== 'Favourites')
-            ? this.renderSongs()
-            : null}
-          {this.props.songs &&
-          this.props.songs[0].track &&
-          this.props.viewType === 'Recently Played'
-            ? this.renderRecentSongs()
-            : null}
-        </div>
-          // )
+      <div className="song-list">
+        {this.props.songs &&
+        !this.props.songs[0].track &&
+        (this.props.viewType !== 'Recently Played' ||
+          this.props.viewType !== 'Favourites')
+          ? this.renderSongs()
+          : null}
+        {this.props.songs &&
+        this.props.songs[0].track &&
+        this.props.viewType === 'Recently Played'
+          ? this.renderRecentSongs()
+          : null}
+      </div>
+      // )
       //   }
       // }
       // </Query>

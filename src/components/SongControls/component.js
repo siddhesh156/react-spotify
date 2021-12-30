@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import moment from 'moment';
 import './SongControls.css';
-
+// import FastForwardIcon from '@mui/icons-material/FastForward';
 class SongControls extends Component {
   state = {
     timeElapsed: this.props.timeElapsed,
@@ -44,6 +44,8 @@ class SongControls extends Component {
       .map((song, index) => {
         if (song.track === songDetails) {
           return index;
+        } else if (song === songDetails) {
+          return index;
         } else {
           return undefined;
         }
@@ -84,14 +86,15 @@ class SongControls extends Component {
             <img
               alt="album"
               className="song-image"
-              src={this.props.songDetails.album.images[0].url}
+              src={this.props.songDetails.album !== undefined ? this.props.songDetails.album.images[0].url : this.props.songDetails.track.album.images[0].url}
             />
-          ) : <img
-          alt="album"
-          className="song-image"
-          src={"https://eoto.tech/wp-content/uploads/2018/03/Spotify-2.png"}
-        />
-         }
+          ) : (
+            <img
+              alt="album"
+              className="song-image"
+              src={'https://eoto.tech/wp-content/uploads/2018/03/Spotify-2.png'}
+            />
+          )}
         </div>
 
         <div className="song-controls">
@@ -104,7 +107,7 @@ class SongControls extends Component {
             </div>
           </div>
 
-          <div className='control-container'>
+          <div className="control-container">
             <div onClick={this.prevSong} className="reverse-song">
               <i className="fa fa-step-backward reverse" aria-hidden="true" />
             </div>

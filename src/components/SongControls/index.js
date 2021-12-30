@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { increaseSongTime } from "../../actions/songActions";
 
 const mapStateToProps = state => {
-  console.log("song control ",state.songsReducer.songDetails);
+  let viewType = state.songsReducer.viewType
   return {
     songName: state.songsReducer.songDetails
       ? state.songsReducer.songDetails.name || state.songsReducer.songDetails.track.name
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
     songPlaying: state.songsReducer.songPlaying,
     timeElapsed: state.songsReducer.timeElapsed,
     songPaused: state.songsReducer.songPaused,
-    songDetails: state.songsReducer.songDetails,
+    songDetails: state.songsReducer.songDetails !== undefined && (viewType === "Recently Played" || viewType === "Favourites") ? state.songsReducer.songDetails.track : state.songsReducer.songDetails,
     songs: state.songsReducer.songs
   };
 };

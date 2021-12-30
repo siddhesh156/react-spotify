@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchSongs } from '../../actions/songActions';
 import { addSongToLibrary } from '../../actions/userActions';
+import { fetchSearchSongs } from '../../actions/songActions';
 
 const mapStateToProps = (state) => {
 
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 
   return bindActionCreators({
     fetchSongs,
+    fetchSearchSongs,
     addSongToLibrary
   }, dispatch);
 

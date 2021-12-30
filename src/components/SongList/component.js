@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import './SongList.css';
-
 class SongList extends Component {
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.viewType)
     if (
       nextProps.token !== '' &&
       !nextProps.fetchSongsError &&
@@ -13,11 +13,24 @@ class SongList extends Component {
     ) {
       this.props.fetchSongs(nextProps.token);
     }
+    else if(nextProps.viewType == "search"){
+      this.props.fetchSearchSongs()
+    }
   }
 
   componentDidMount() {
     this.props.fetchSongs(this.props.token);
   }
+
+   random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',1)';
+}
+  
+  componentDidUpdate(){
+   document.body.style.background = `linear-gradient(to left, rgba(255,0,0,0), ${this.random_rgba()})`
+  }
+
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -163,6 +176,7 @@ SongList.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
+  fetchSearchSongs : PropTypes.func
 };
 
 export default SongList;

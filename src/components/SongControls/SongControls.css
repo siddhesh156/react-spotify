@@ -13,6 +13,8 @@
   font-family: 'Proxima Nova', Georgia, sans-serif;
   color: #fff;
   margin-left: -28%;
+  word-break: break-word;
+  width: 300px;
 }
 
 .song-details .artist-name {

@@ -1,5 +1,6 @@
 import uniqBy from 'lodash/uniqBy';
 import { setArtistIds } from './artistActions';
+import { updateHeaderTitle } from "./uiActions";
 
 export const fetchSongsPending = () => {
   return {
@@ -18,6 +19,14 @@ export const fetchSongsError = () => {
   return {
     type: 'FETCH_SONGS_ERROR'
   };
+};
+
+export const fetchSearchSongs = () => {
+  return (dispatch,getState) => {
+    let res = getState().songsReducer.songs
+    dispatch(fetchSongsSuccess(res));
+    updateHeaderTitle("For You")
+  }
 };
 
 export const fetchSongs = (accessToken) => {
@@ -79,7 +88,14 @@ export const searchSongsError = () => {
 
 export const searchSongs = (searchTerm, accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {
+    // const request = new Request(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {
+    //   headers: new Headers({
+    //     'Authorization': 'Bearer ' + accessToken,
+    //     'Accept': 'application/json'
+    //   })
+    // });
+
+    const request = new Request(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track&limit=10&offset=5`, {
       headers: new Headers({
         'Authorization': 'Bearer ' + accessToken,
         'Accept': 'application/json'
@@ -99,7 +115,9 @@ export const searchSongs = (searchTerm, accessToken) => {
           track: item
         };
       });
+      console.log(res.items);
       dispatch(searchSongsSuccess(res.items));
+      dispatch(fetchSongsSuccess(res.items));
     }).catch(err => {
       dispatch(fetchSongsError(err));
     });

@@ -10,10 +10,6 @@ import {
   pauseSong,
   resumeSong,
 } from './actions/songActions';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import UserPlaylists from './components/UserPlaylists';
-import MainView from './components/MainView';
 import ArtWork from './components/ArtWork';
 import MainHeader from './components/MainHeader';
 import SideMenu from './components/SideMenu';
@@ -22,12 +18,17 @@ import SongList from './components/SongList';
 import Login from './components/Login/Login';
 import { getTokenFromResponse } from './spotify';
 import SongControls from './components/SongControls';
-import SongDispaly from './components/SongDisplay/component';
-
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
 class App extends Component {
   static audio;
   static token;
 
+  static client = new ApolloClient({
+    uri: "https://api.ss.dev/resource/api"
+  });
+
+ 
   componentDidMount() {
     // let hashParams = {};
     let hashParams = getTokenFromResponse();
@@ -99,9 +100,11 @@ class App extends Component {
   };
 
   render() {
+    console.log("celint ",this.client);
     return !this.token ? (
       <Login />
     ) : (
+      <ApolloProvider client={this.client}>
       <div className="App">
         <div className="app-container">
           <div className="left-side-section">
@@ -142,6 +145,7 @@ class App extends Component {
           </div>
         </div>
       </div>
+      </ApolloProvider>
     );
   }
 }
